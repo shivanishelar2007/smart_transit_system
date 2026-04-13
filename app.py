@@ -46,8 +46,3 @@ def traffic_now():
     labels = {1:"Low",2:"Moderate",3:"Heavy"}
     return jsonify({"level": t, "label": labels[t], "hour": datetime.now().hour})
 
-if __name__ == '__main__':
-    if __name__ == '__main__':
-    import os
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
