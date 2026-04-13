@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Help – PuneRide</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<nav>
+  <div class="logo"><span class="logo-icon">🚌</span> PuneRide</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Live Tracker</a>
+    <a href="about.html">About</a>
+    <a href="help.html" class="active">Help</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <h1>Help &amp; FAQ</h1>
+
+  <div class="faq"><div class="faq-q" onclick="t(this)">How do I use the Live Tracker? <span class="arrow">+</span></div>
+  <div class="faq-a">Go to Live Tracker. Step 1: Search and click your boarding bus stop. Step 2: Search and click your destination stop. Step 3: The system shows buses connecting those two stops with predicted ETAs. Click "View on map" to see the route highlighted.</div></div>
+
+  <div class="faq"><div class="faq-q" onclick="t(this)">How does GPS work? <span class="arrow">+</span></div>
+  <div class="faq-a">Click the "📍 Use GPS" button. Your browser will ask for location permission — click Allow. The system will find the nearest bus stop to your current location and select it automatically as your boarding stop.</div></div>
+
+  <div class="faq"><div class="faq-q" onclick="t(this)">Why does it say "No direct bus found"? <span class="arrow">+</span></div>
+  <div class="faq-a">This means no single bus runs directly between the two stops you selected. In the demo, only stops on the same route are connected. Try choosing stops from the same route: Shivajinagar↔Swargate (Bus 101), Katraj↔Hadapsar (Bus 155), or Wakad↔Kothrud (Bus 50).</div></div>
+
+  <div class="faq"><div class="faq-q" onclick="t(this)">Which stops are on which route? <span class="arrow">+</span></div>
+  <div class="faq-a">
+    <b>Bus 101:</b> Shivajinagar → FC Road → Deccan → Nal Stop → Dandekar Bridge → Swargate<br><br>
+    <b>Bus 155:</b> Katraj → Bibwewadi → Swargate → Market Yard → Pune Railway Station → Ghorpadi → Hadapsar<br><br>
+    <b>Bus 50:</b> Wakad → Baner Road → Aundh IT Park → Parihar Chowk → Karve Road → Kothrud Depot
+  </div></div>
+
+  <div class="faq"><div class="faq-q" onclick="t(this)">How is the ETA calculated? <span class="arrow">+</span></div>
+  <div class="faq-a">The ETA has two parts: (1) Wait time — how long until the next bus arrives at your boarding stop, calculated from the bus schedule. (2) Ride time — distance between your stops divided by average bus speed, plus 1.5 min dwell time per stop, multiplied by a traffic factor based on the current hour.</div></div>
+
+  <div class="faq"><div class="faq-q" onclick="t(this)">Why does traffic affect ETA? <span class="arrow">+</span></div>
+  <div class="faq-a">Pune has predictable peak-hour traffic. The system detects the current time and applies a delay multiplier: peak hours (8–10am, 5–8pm) add 40% more time, off-peak is normal, and night hours are 15% faster. This makes ETAs much more realistic than a simple distance/speed calculation.</div></div>
+
+  <div class="faq"><div class="faq-q" onclick="t(this)">How do I run this locally? <span class="arrow">+</span></div>
+  <div class="faq-a">
+    The frontend works without any server — just open <code>index.html</code> in your browser.<br><br>
+    For the Flask backend:<br>
+    1. <code>pip install flask flask-cors scikit-learn numpy pandas</code><br>
+    2. <code>python train_model.py</code> (run once)<br>
+    3. <code>python app.py</code><br>
+    4. Open index.html in browser.
+  </div></div>
+
+  <div class="faq"><div class="faq-q" onclick="t(this)">Can I reset and search again? <span class="arrow">+</span></div>
+  <div class="faq-a">Yes. After viewing your journey, scroll down in the left panel and click "← New Journey". Or click "Change" next to your stop selections to go back a step.</div></div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <span>🚌 PuneRide Smart Bus ETA</span>
+    <span>Built with Flask · Leaflet · ML · 2026</span>
+    <span>Demo Project · PMPML Inspired</span>
+  </div>
+</footer>
+<script>
+function t(el) {
+  const a = el.nextElementSibling, ar = el.querySelector('.arrow');
+  const open = a.style.display === 'block';
+  a.style.display = open ? 'none' : 'block';
+  ar.textContent = open ? '+' : '−';
+}
+document.querySelectorAll('.faq-a').forEach(a => a.style.display = 'none');
+</script>
+</body>
+</html>

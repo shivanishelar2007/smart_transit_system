@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About – PuneRide</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<nav>
+  <div class="logo"><span class="logo-icon">🚌</span> PuneRide</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Live Tracker</a>
+    <a href="about.html" class="active">About</a>
+    <a href="help.html">Help</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <h1>About PuneRide</h1>
+  <p>PuneRide is a smart bus ETA prediction system built for Pune city commuters. It uses a machine learning model trained on bus route data to predict realistic arrival times, adjusted for time-of-day traffic patterns.</p>
+
+  <h2>Problem</h2>
+  <p>PMPML commuters have no easy way to know when the next bus will arrive or how long their journey will take. This leads to missed buses, long waits, and uncertainty.</p>
+
+  <h2>Solution</h2>
+  <p>The user selects their boarding stop and destination stop from a list (or uses GPS to find the nearest stop). The system shows only buses that directly connect those two stops, predicts the wait time from the next schedule, and calculates in-bus travel time adjusted for current traffic.</p>
+
+  <h2>Technologies Used</h2>
+  <div class="chips">
+    <span class="chip">Python 3</span><span class="chip">Flask</span><span class="chip">flask-cors</span>
+    <span class="chip">scikit-learn</span><span class="chip">NumPy</span><span class="chip">Pandas</span>
+    <span class="chip">Leaflet.js</span><span class="chip">OpenStreetMap</span>
+    <span class="chip">Browser GPS API</span><span class="chip">HTML5 / CSS3 / JS</span>
+  </div>
+
+  <h2>How the ETA Model Works</h2>
+  <p>The Linear Regression model is trained on features: route distance (km), number of stops, and traffic level (1–3). A time-of-day multiplier is applied on top — peak hours 8–10am and 5–8pm use a 1.40× delay factor; night hours use 0.85×. Dwell time per stop (1.5 min) is added to each ride estimate.</p>
+
+  <h2>Traffic Pattern (Pune Weekday)</h2>
+  <p>Traffic levels are pre-mapped by hour: midnight–5am is Low (1), 6am is Moderate (2), 7–10am is Heavy (3), 11am–3pm is Moderate (2), 4–7pm is Heavy (3), 8–10pm is Moderate (2), and 11pm–midnight is Low (1). This mirrors real Pune peak-hour patterns.</p>
+
+  <h2>Bus Filtering Logic</h2>
+  <p>When you select a boarding stop and destination stop, the system checks all buses to see which ones have <em>both</em> stops on their route, in the correct forward direction. Only those buses are shown. If no bus connects the two stops directly, a clear "No direct bus" message is displayed.</p>
+
+  <h2>System Flow</h2>
+  <div class="flow">
+    <div class="flow-step">Select boarding stop</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">Select destination stop</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">Filter valid buses</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">ML ETA prediction</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">Route highlighted on map</div>
+  </div>
+
+  <h2>Future Enhancements</h2>
+  <p>Live PMPML GPS tracking, real GTFS feed integration, weather-based delay model, crowdsourced delay reports, mobile push notifications when bus is 2 stops away, multi-leg journey planning with transfers.</p>
+</div>
+<footer>
+  <div class="footer-inner">
+    <span>🚌 PuneRide Smart Bus ETA</span>
+    <span>Built with Flask · Leaflet · ML · 2026</span>
+    <span>Demo Project · PMPML Inspired</span>
+  </div>
+</footer>
+</body>
+</html>

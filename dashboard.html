@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Tracker – PuneRide</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body class="dashboard-body">
+
+<nav>
+  <div class="logo"><span class="logo-icon">🚌</span> PuneRide</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html" class="active">Live Tracker</a>
+    <a href="about.html">About</a>
+    <a href="help.html">Help</a>
+  </div>
+</nav>
+
+<div class="tracker-layout">
+
+  <!-- ===== LEFT PANEL ===== -->
+  <div class="left-panel" id="left-panel">
+
+    <!-- STEP 1: Choose boarding stop -->
+    <div class="panel-section" id="section-board">
+      <div class="step-header">
+        <div class="step-badge">1</div>
+        <span>Where are you boarding?</span>
+      </div>
+
+      <div class="search-wrap">
+        <input type="text" id="board-search" placeholder="Search bus stop name…" oninput="filterStops('board')" autocomplete="off"/>
+        <button class="gps-btn" onclick="useGPS()" title="Find nearest stop via GPS">📍 Use GPS</button>
+      </div>
+
+      <div class="stop-list" id="board-stop-list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <!-- STEP 2: Choose alighting stop -->
+    <div class="panel-section hidden" id="section-alight">
+      <div class="step-header">
+        <div class="step-badge">2</div>
+        <span>Where are you going?</span>
+      </div>
+
+      <div class="selected-stop-row">
+        <div class="sel-dot" style="background:#e74c3c"></div>
+        <div>
+          <div class="sel-label">Boarding at</div>
+          <div class="sel-name" id="board-selected-name">—</div>
+        </div>
+        <button class="change-btn" onclick="resetToStep1()">Change</button>
+      </div>
+
+      <div class="search-wrap" style="margin-top:12px">
+        <input type="text" id="alight-search" placeholder="Search destination stop…" oninput="filterStops('alight')" autocomplete="off"/>
+      </div>
+
+      <div class="stop-list" id="alight-stop-list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <!-- STEP 3: Bus results -->
+    <div class="panel-section hidden" id="section-buses">
+      <div class="step-header">
+        <div class="step-badge">3</div>
+        <span>Available Buses</span>
+      </div>
+
+      <div class="selected-stop-row" style="margin-bottom:6px">
+        <div class="sel-dot" style="background:#e74c3c"></div>
+        <div style="flex:1">
+          <div class="sel-label">From</div>
+          <div class="sel-name" id="from-label">—</div>
+        </div>
+      </div>
+      <div class="selected-stop-row" style="margin-bottom:14px">
+        <div class="sel-dot" style="background:#27ae60"></div>
+        <div style="flex:1">
+          <div class="sel-label">To</div>
+          <div class="sel-name" id="to-label">—</div>
+        </div>
+        <button class="change-btn" onclick="resetToStep2()">Change</button>
+      </div>
+
+      <div id="bus-results"><!-- populated by JS --></div>
+    </div>
+
+    <!-- STEP 4: Journey details -->
+    <div class="panel-section hidden" id="section-eta">
+      <div class="step-header">
+        <div class="step-badge">4</div>
+        <span>Your Journey</span>
+      </div>
+      <div id="eta-result"><!-- populated by JS --></div>
+    </div>
+
+  </div>
+
+  <!-- ===== MAP ===== -->
+  <div class="map-container">
+    <div id="map"></div>
+
+    <div class="map-legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#e74c3c"></div> Board here</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#27ae60"></div> Get off here</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#3498db"></div> Bus stop</div>
+      <div class="leg-item"><div class="leg-line"></div> Bus route</div>
+    </div>
+
+    <div class="traffic-badge" id="traffic-badge">
+      <span id="traffic-label">—</span>
+    </div>
+  </div>
+
+</div><!-- end tracker-layout -->
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="buses.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
